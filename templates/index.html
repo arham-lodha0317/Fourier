@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>fourier</title>
+	<script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
+
+	<script src="../static/waveSketch.js"></script>
+	<script src="../static/fourier.js"></script>
+	<script src="../static/complexFourier.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<style>
+		body {
+			margin:0;
+			padding:0;
+		}
+		canvas {
+			margin:auto;
+		}
+	</style>
+</head>
+<body>
+	<div id="fourier" class = "jumbotron">
+		<h1>Fourier Series</h1>
+	</div>
+
+
+	<div id="waveFourier" class="container">
+		<div id = waveMaxAbsoluteFrequency class="row justify-content-center">
+			What is the maximum absolute frequency for the fourier series?
+			<div id="waveMaxFrequencySlider" class="p-2"></div>
+			<div id="waveMaxFrequencyText" class = "p-2"></div>
+		</div>
+		<div id="waveTimeScale" class="row justify-content-center">
+			What is the time scale for the fourier series?
+			<div id="waveTimeSlider" class = "p-2"></div>
+			<div id="waveTimeText" class = "p-2"></div>
+		</div>
+		<div id="waveSubmit" class="row justify-content-center p-3"></div>
+
+		<div id="waveSketch" class="row justify-content-center p-3"></div>
+	</div>
+
+	<div id="complexFourier" class="container">
+		<div id="form" class="container">
+			<div id = "row1" class="row p-3">
+				<div id="file-upload"></div>
+				<div id = MaxAbsoluteFrequency class="row justify-content-center">
+					What is the maximum absolute frequency for the fourier series?
+					<div id="MaxFrequencySlider" class="p-2"></div>
+					<div id="MaxFrequencyText" class = "p-2"></div>
+				</div>
+			</div>
+			<div id = "row2" class="row p-3 justify-content-center">
+				<div id="TimeScale" class="row justify-content-center">
+					What is the time scale for the fourier series?
+					<div id="TimeSlider" class = "p-2"></div>
+					<div id="TimeText" class = "p-2"></div>
+				</div>
+			</div>
+			<div id="submit" class="row justify-content-center p-3"></div>
+		</div>
+		<div id = "sketch" class="row container p-3"></div>
+	</div>
+
+	<div id = "svg"></div>
+</body>
+</html>
