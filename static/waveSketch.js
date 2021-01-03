@@ -11,15 +11,11 @@ let wave = (p) => {
     let signal;
     let fourier;
     let path;
-    let start;
 
+    let submit;
     let timeFactor;
-    let timeSlider;
-    let timeText;
-
     let maxAngularVelocity;
-    let maxARSlider;
-    let maxARText;
+
 
     p.setup = () => {
         canvas = p.createCanvas(window.innerWidth * .75, window.innerHeight * .90);
@@ -37,6 +33,14 @@ let wave = (p) => {
             signal.push([0])
         }
 
+        submit = p.createButton("Start Fourier")
+        submit.mousePressed(buttonPress)
+        submit.parent("waveSubmit")
+        submit.addClass("btn").addClass("btn-outline-success").addClass("btn-block")
+
+        timeFactor = document.getElementById("waveTimeSlider").value
+        maxAngularVelocity = document.getElementById("waveFrequencySlider").value
+
     }
 
     p.draw = () => {
@@ -45,6 +49,9 @@ let wave = (p) => {
         p.translate(0, height);
         p.scale(1,-1)
 
+        timeFactor = document.getElementById("waveTimeSlider").value
+        maxAngularVelocity = document.getElementById("waveFrequencySlider").value
+
         if(STATE === USER){
 
             if(p.mouseIsPressed){
@@ -52,9 +59,7 @@ let wave = (p) => {
             }
 
             p.stroke(255);
-
             p.noFill();
-
             p.beginShape();
 
             for (let i = 0; i < width/2; i++) {
@@ -64,11 +69,6 @@ let wave = (p) => {
             p.endShape();
         }
         else{
-            timeFactor = timeSlider.value();
-            timeText.value(timeFactor);
-
-            maxAngularVelocity = maxARSlider.value();
-            maxARText.value(maxAngularVelocity);
 
             fourier.changeTimeMultiplier(timeFactor);
             if(fourier.maxFrequency !== maxAngularVelocity) fourier.recompute(maxAngularVelocity);
@@ -76,7 +76,7 @@ let wave = (p) => {
         }
     }
 
-    mousePressed = () => {
+    let mousePressed = () => {
         if(p.mouseX > width/2 && p.mouseY >0 && p.mouseY < height*2) {
             let x = Math.round((p.mouseX - width / 2 - 1) % (width / 4));
             let y = p.mouseY - height;
@@ -101,14 +101,14 @@ let wave = (p) => {
         }
     }
 
-    drawPath = () => {
+    let drawPath = () => {
         let end = fourier.display(p);
         path.unshift(end.y);
 
-        p.stroke(0,255,0);
+        p.stroke(0, 255, 0);
 
 
-        let startX = width/2;
+        let startX = width / 2;
         let total = width - startX;
 
         p.line(end.x, end.y, startX, end.y);
@@ -120,22 +120,24 @@ let wave = (p) => {
         }
         p.endShape();
 
-        if(path.length === total){
+        if (path.length === total) {
             path.pop();
         }
     }
 
-    buttonPress = () => {
+    let buttonPress = () => {
         if(STATE === USER){
-            STATE = FOURIER;
             fourier = new FourierEpicycles(signal, maxAngularVelocity, width/4, 0);
+            console.log(timeFactor);
+            STATE = FOURIER;
+
             path = [];
+            submit.html("Pause");
             drawPath();
         }
         else if(STATE === FOURIER){
             STATE = USER;
-            start = p.createButton('Show Variable Path');
-            start.mousePressed(buttonPress());
+            submit.html("Start Fourier")
         }
     }
 

@@ -59,7 +59,7 @@ let complexFourier = (p) => {
                 fourier.recompute(maxFrequency);
                 path = []
             }
-            drawPath();
+            drawComplexPath();
         }
     }
 
@@ -126,7 +126,7 @@ let complexFourier = (p) => {
         }
     }
 
-    drawPath = () => {
+    drawComplexPath = () => {
         let end = fourier.display(p);
         path.unshift(end);
 
