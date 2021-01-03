@@ -37,23 +37,6 @@ let wave = (p) => {
             signal.push([0])
         }
 
-        start = p.createButton("Start Fourier").parent("waveSubmit");
-        start.mousePressed(buttonPress);
-
-
-        maxARSlider = p.createSlider(0, 100, 10, 1).parent("waveMaxFrequencySlider");
-        maxAngularVelocity = maxARSlider.value;
-
-        maxARText = p.createInput('').parent("waveMaxFrequencyText");
-
-        timeSlider = p.createSlider(.1, 10, 1, .1);
-        timeSlider.parent("waveTimeSlider");
-
-        timeFactor = timeSlider.value();
-
-        if(timeFactor < 0) timeFactor = 1 / Math.abs(timeFactor);
-
-        timeText = p.createInput('').parent("waveTimeText");
     }
 
     p.draw = () => {
@@ -61,13 +44,6 @@ let wave = (p) => {
         p.background(0);
         p.translate(0, height);
         p.scale(1,-1)
-
-        timeFactor = timeSlider.value();
-
-        timeText.value(timeFactor);
-
-        maxAngularVelocity = maxARSlider.value();
-        maxARText.value(maxAngularVelocity);
 
         if(STATE === USER){
 
@@ -88,6 +64,12 @@ let wave = (p) => {
             p.endShape();
         }
         else{
+            timeFactor = timeSlider.value();
+            timeText.value(timeFactor);
+
+            maxAngularVelocity = maxARSlider.value();
+            maxARText.value(maxAngularVelocity);
+
             fourier.changeTimeMultiplier(timeFactor);
             if(fourier.maxFrequency !== maxAngularVelocity) fourier.recompute(maxAngularVelocity);
             drawPath();

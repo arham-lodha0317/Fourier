@@ -7,13 +7,15 @@
 
 	<title>fourier</title>
 	<script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 	<script src="../static/waveSketch.js"></script>
 	<script src="../static/fourier.js"></script>
 	<script src="../static/complexFourier.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<style>
+
+
+    <style>
 		body {
 			margin:0;
 			padding:0;
@@ -30,20 +32,48 @@
 
 
 	<div id="waveFourier" class="container">
-		<div id = waveMaxAbsoluteFrequency class="row justify-content-center">
-			What is the maximum absolute frequency for the fourier series?
-			<div id="waveMaxFrequencySlider" class="p-2"></div>
-			<div id="waveMaxFrequencyText" class = "p-2"></div>
-		</div>
-		<div id="waveTimeScale" class="row justify-content-center">
-			What is the time scale for the fourier series?
-			<div id="waveTimeSlider" class = "p-2"></div>
-			<div id="waveTimeText" class = "p-2"></div>
-		</div>
-		<div id="waveSubmit" class="row justify-content-center p-3"></div>
 
-		<div id="waveSketch" class="row justify-content-center p-3"></div>
-	</div>
+        <div class="waveForm">
+
+            <div class="row m-3 justify-content-center">
+                <p class="col-sm-3">Maximum Absolute Frequency</p>
+                <input type="range"
+                       min="0"
+                       max="100"
+                       value="10"
+                       id="waveFrequencyRange"
+                       class="custom-range col-sm-5"
+                       oninput="change('waveFrequencyText', this.value)">
+                <input type="number"
+                       id="waveFrequencyText"
+                       class="col-sm-3 mx-3"
+                       value="10"
+                       oninput="change('waveFrequencyRange', this.value)">
+            </div>
+            <div class="row m-3 justify-content-center">
+                <p class="col-sm-3">Time Scale</p>
+                <input type="range"
+                       min="0.1"
+                       max="10"
+                       value="1"
+                       step=".1"
+                       id="waveTimeSlider"
+                       class="custom-range col-sm-5"
+                       oninput="change('waveTimeText', this.value)">
+                <input type="text"
+                       id="waveTimeText"
+                       class="col-sm-3 mx-3"
+                       value="1"
+                       oninput="change('waveTimeSlider', this.value)">
+            </div>
+            <div class="row m-3 justify-content-center">
+                <button class="btn btn-outline-success btn-block" id="waveSubmit">Start Fourier</button>
+            </div>
+
+        </div>
+
+        <div id="waveSketch" class="row p-3"></div>
+    </div>
 
 	<div id="complexFourier" class="container">
 		<div id="form" class="container">
@@ -68,5 +98,13 @@
 	</div>
 
 	<div id = "svg"></div>
+
+    <script>
+
+        change = (id, value) => {
+            document.getElementById(id).value = value;
+        }
+
+    </script>
 </body>
 </html>
